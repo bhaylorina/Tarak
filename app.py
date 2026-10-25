@@ -53,13 +53,17 @@ def get_last_update_time():
 
 def set_last_update_time():
     with open(LAST_UPDATE_FILE, 'w') as f:
-        f.write(datetime.now().strftime("%Y-%m-%d"))
+        ist = pytz.timezone('Asia/Kolkata')
+        now_ist = datetime.now(ist)
+        f.write(now_ist.strftime("%Y-%m-%d"))
 
 def check_and_update_new_episodes():
     """Check if it's past 8:31 PM and update hasn't run today"""
-    today_str = datetime.now().strftime("%Y-%m-%d")
     ist = pytz.timezone('Asia/Kolkata')
     now_ist = datetime.now(ist)
+    today_str = now_ist.strftime("%Y-%m-%d")
+    
+    current_time = now_ist.time()
     last_update = get_last_update_time()
 
     # Agar aaj update ho chuka hai, toh wapas jao
@@ -172,7 +176,7 @@ def play_episode():
 
     content_id = str(ep_data['contentId'])
 
-    # ... (Video URL API logic jo aapke purane code me tha) ...
+    # ... (Video URL API logic) ...
     api_url = f"https://apiv2.sonyliv.com/AGL/5.0/SR/ENG/ANDROID_PHONE/IN/GJ/CONTENT/VIDEOURL/VOD/{content_id}"
     params = {'contactId': "473524226", 'kids_safe': "false", 'partnerName': "NA"}
     payload = {
@@ -206,4 +210,5 @@ def play_episode():
         return f"Manifest Error: {str(e)}", 500
 
 if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
