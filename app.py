@@ -2,6 +2,8 @@ from flask import Flask, request, Response
 import requests
 import json
 import os
+import shutil
+import pytz
 import re
 from datetime import datetime, time
 
@@ -28,6 +30,12 @@ PROXY_HEADERS = {
 # --- HELPER FUNCTIONS ---
 
 def load_db():
+    # Agar /data me file nahi hai, par purani file root me hai, toh auto-copy karein
+    if not os.path.exists(MASTER_FILE):
+        if os.path.exists("master_episodes.json"):
+            shutil.copy("master_episodes.json", MASTER_FILE)
+            print("✅ Data volume me copy ho gaya!")
+            
     if os.path.exists(MASTER_FILE):
         with open(MASTER_FILE, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -50,7 +58,8 @@ def set_last_update_time():
 def check_and_update_new_episodes():
     """Check if it's past 8:31 PM and update hasn't run today"""
     today_str = datetime.now().strftime("%Y-%m-%d")
-    current_time = datetime.now().time()
+    ist = pytz.timezone('Asia/Kolkata')
+    now_ist = datetime.now(ist)
     last_update = get_last_update_time()
 
     # Agar aaj update ho chuka hai, toh wapas jao
