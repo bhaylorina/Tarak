@@ -148,7 +148,7 @@ def generate_m3u():
     base_url = f"http://{request.host}/play"
     
     m3u_content = ["#EXTM3U"]
-    for ep in db:
+    for ep in reversed(db):
         ep_num = ep['episodeNumber']
         title = ep['episodeTitle']
         date = ep['airDate']
