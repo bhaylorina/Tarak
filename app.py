@@ -8,8 +8,8 @@ from datetime import datetime, time
 app = Flask(__name__)
 
 # --- CONFIGURATION ---
-MASTER_FILE = "master_episodes.json"
-LAST_UPDATE_FILE = "last_update.txt"
+MASTER_FILE = "/data/master_episodes.json"
+LAST_UPDATE_FILE = "/data/last_update.txt"
 SHOW_ID = "1700000084"
 TIME_TO_UPDATE = time(20, 31) # 20:31 = 8:31 PM
 
