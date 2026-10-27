@@ -14,29 +14,30 @@ app = Flask(__name__)
 MASTER_FILE = "/data/master_episodes.json"
 OLD_MASTER_FILE = "master_episodes.json"
 
-# --- SHOWS CONFIGURATION ---
+# --- SHOWS CONFIGURATION (TIMES UPDATED) ---
 SHOWS_CONFIG = [
     {
         "name": "Tarak Maheta",
         "id": "1700000084",
-        "update_time": time(20, 31), # 8:31 PM
+        "update_time": time(20, 31), # 8:31 PM IST
         "is_new": False
     },
     {
         "name": "Hastinapur ke veer",
         "id": "1790007734", 
-        "update_time": time(00, 1),  # 9:01 PM
+        "update_time": time(21, 1),  # 9:01 PM IST
         "is_new": True
     },
     {
         "name": "Pushpa Impossible",
         "id": "1700000921", 
-        "update_time": time(00, 1), # 9:31 PM
+        "update_time": time(21, 31), # 9:31 PM IST
         "is_new": True
     }
 ]
 
 # --- API TOKENS & HEADERS ---
+# YAHAN APNA NAYA TOKEN DAALEIN
 TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGFubmVsUGFydG5lcklEIjoiTVNNSU5EIiwiY29udGFjdElEIjoiNDczNTI0MjI2IiwiZGF0ZU9mQmlydGgiOjc3ODk2MjYwMDAwMCwiZW1haWwiOiJ5azcwOTMwNTZAZ21haWwuY29tIiwiZXhwIjoxODExODA5OTYyLCJleHBpcmF0aW9uTW9tZW50IjoiMjAyNy0wNi0wMVQwMDozMjo0Mi43NzRaIiwiZmlyc3ROYW1lIjoiQXJ2aW5kIiwiZ2VuZGVyIjoiRmVtYWxlIiwiaWF0IjoxNzgwMjczOTYyLCJpc0N1c3RvbWVyRWxpZ2libGVGb3JGcmVlVHJpYWwiOmZhbHNlLCJpc0VtYWlsVmVyaWZpZWQiOnRydWUsImlzTW9iaWxlVmVyaWZpZWQiOnRydWUsImlzUHJvZmlsZUNvbXBsZXRlIjp0cnVlLCJsYXN0TmFtZSI6IkdmeCIsIm1vYmlsZU51bWJlciI6IjYzOTU4MDI3NTgiLCJwcm9maWxlUGljIjoiaHR0cHM6Ly9vcmlnaW4tc3RhdGljdjIuc29ueWxpdi5jb20vVUlfaWNvbnMvTW9iaWxlX0F2YXRhcnNfMDMucG5nIiwic2Vzc2lvbkNyZWF0aW9uVGltZSI6IjIwMjYtMDYtMDFUMDA6MzI6NDIuNzc0WiIsInNvY2lhbExvZ2luSUQiOiJHVV8xMTE2MDc5MDM3NDMxNDU5NjA4MzMiLCJzb2NpYWxMb2dpblR5cGUiOiJHb29nbGUiLCJzb2NpYWxQcm9maWxlUGljIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSWZwTFVjbUg4YklSVW5lRHFHUzV1dU1rU1p3cWo4d3RxemNEUkJGWFFBSllnaDhRPXMxMDAiLCJ0b2tlbiI6ImU1V20tM09KVi00Tjh0LUcwVnktY1Vpai1nblRjLU13IiwidXNlcklkIjoiMjQwOTEwMTAwODE5OTczODYyNyJ9.nbO7tqv7JDcO-zvnekXirhoXJjoeXh_uH87W8dHh_tg"
 SESSION_ID = "c5e7c4ef0f091d5e_1780273929491"
 DEVICE_ID = "83a25beee1317224"
@@ -62,7 +63,6 @@ def load_db():
         print("✅ Old Data copied to /data/")
 
     if isinstance(data, list):
-        print("🔄 Migrating old list format to new multi-show dictionary format...")
         new_data = {"Tarak Maheta": data}
         save_db(new_data)
         return new_data
@@ -109,9 +109,11 @@ def check_and_update_new_episodes():
         update_time = show["update_time"]
         is_new = show["is_new"]
         
+        # Time check
         if current_time < update_time:
             continue
             
+        # Daily update check
         if get_last_update_date(show_name) == today_str:
             continue
 
@@ -151,7 +153,6 @@ def check_and_update_new_episodes():
                             })
                             existing_ep_numbers.add(ep_num)
                             new_episodes_added += 1
-                            print(f"✅ {show_name}: Added Ep {ep_num} ({date_str})")
                     
                     for v in data.values():
                         extract_episodes(v)
@@ -172,7 +173,6 @@ def check_and_update_new_episodes():
 
     if db_changed:
         save_db(db)
-        print("💾 Database saved successfully.")
 
 
 # --- ROUTES ---
@@ -182,8 +182,10 @@ def generate_m3u():
     check_and_update_new_episodes()
     db = load_db()
     
-    # Request ke hisaab se http ya https automatically set ho jayega
-    base_url = request.host_url + "play"
+    base_url = request.host_url
+    if "localhost" not in base_url and "127.0.0.1" not in base_url:
+        base_url = base_url.replace("http://", "https://")
+    base_url += "play"
     
     m3u_content = ["#EXTM3U"]
     
@@ -192,8 +194,6 @@ def generate_m3u():
             continue
             
         group_title = f"SAB | {show_name}"
-        
-        # Show ID nikal rahe hain URL me bhejne ke liye (taaki spaces ka issue na aaye)
         show_id_for_url = next((s["id"] for s in SHOWS_CONFIG if s["name"] == show_name), "")
         
         for ep in reversed(episodes):
@@ -203,7 +203,6 @@ def generate_m3u():
             
             display_name = f"{date} - Ep {ep_num} - {title}"
             
-            # CHANGE 1 & 3: URL me show_name nahi, show_id bhejenge. Aur tvg-id unique banayenge.
             unique_tvg_id = f"{show_id_for_url}_{ep_num}"
             stream_url = f"{base_url}?show={show_id_for_url}&ep={ep_num}&date={date}"
             
@@ -235,7 +234,7 @@ def play_episode():
 
     content_id = str(ep_data['contentId'])
 
-    # --- Video URL API Logic (EXACT COPY OF YOUR WORKING SCRIPT) ---
+    # --- Video URL API Logic ---
     api_url = f"https://apiv2.sonyliv.com/AGL/5.0/SR/ENG/ANDROID_PHONE/IN/GJ/CONTENT/VIDEOURL/VOD/{content_id}"
     
     params = {
@@ -244,7 +243,6 @@ def play_episode():
         'partnerName': "NA"
     }
 
-    # Aapke working script se liya gaya Payload
     payload = {
         "actionType": "play",
         "adsParams": {
@@ -265,7 +263,6 @@ def play_episode():
         "platform": "web"
     }
 
-    # Aapke working script se liye gaye Headers
     headers = {
         'User-Agent': USER_AGENT,
         'Accept-Encoding': "gzip",
@@ -281,15 +278,13 @@ def play_episode():
     }
 
     try:
-        # data=json.dumps(payload) use kiya hai jaise aapki script me tha
         response = requests.post(api_url, params=params, data=json.dumps(payload), headers=headers)
         res_json = response.json()
         video_url = res_json.get("resultObj", {}).get("videoURL")
         
         if not video_url:
-            # Agar API phir bhi fail hoti hai, toh error print karo
-            print(f"❌ API Error for {show_name} Ep {ep_num}: {res_json}")
-            return f"API Error: {res_json}", 500
+            # DEBUG CODE HATA DIYA HAI. Ab ye player ko simple error bhejega
+            return f"API Error: Could not find videoURL for content {content_id}", 500
             
     except Exception as e:
         return f"Server Error: {str(e)}", 500
