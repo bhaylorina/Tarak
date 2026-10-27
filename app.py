@@ -216,12 +216,11 @@ def generate_m3u():
 @app.route('/play', methods=['GET'])
 def play_episode():
     ep_num = request.args.get('ep')
-    show_id = request.args.get('show') # Ab yahan Show ID aayegi (e.g. 1790007734)
+    show_id = request.args.get('show')
     
     if not ep_num or not show_id:
         return "Missing 'ep' or 'show' parameter", 400
         
-    # Show ID se Show ka naam dhundenge
     show_name = next((s["name"] for s in SHOWS_CONFIG if s["id"] == show_id), None)
     
     if not show_name:
@@ -236,21 +235,62 @@ def play_episode():
 
     content_id = str(ep_data['contentId'])
 
-    # --- Video URL API Logic ---
+    # --- Video URL API Logic (EXACT COPY OF YOUR WORKING SCRIPT) ---
     api_url = f"https://apiv2.sonyliv.com/AGL/5.0/SR/ENG/ANDROID_PHONE/IN/GJ/CONTENT/VIDEOURL/VOD/{content_id}"
-    params = {'contactId': "473524226", 'kids_safe': "false", 'partnerName': "NA"}
+    
+    params = {
+        'contactId': "473524226",
+        'kids_safe': "false",
+        'partnerName': "NA"
+    }
+
+    # Aapke working script se liya gaya Payload
     payload = {
         "actionType": "play",
-        "adsParams": {"app_ver": "6.34.4", "gId": "bac199fc2fcb6eb25bec614ba3025f6f", "Idtype": "adid", "Is_lat": "0", "ppid": "0bd46cd548b8d5ca1f5be9ef68f392b2", "rdid": "6ffdd4c9-6ac7-47d4-b34c-f4c5d017f625"},
-        "assetId": content_id, "browser": "chrome", "deviceId": DEVICE_ID, "drmDeviceId": "67039276-c513-407b-bddd-0be9bb897e98", "os": "android", "platform": "web"
+        "adsParams": {
+            "app_ver": "6.34.4",
+            "gId": "c06704015c0b184809d05c5b1a0a86a5",
+            "Idtype": "adid",
+            "Is_lat": "0",
+            "ppid": "0bd46cd548b8d5ca1f5be9ef68f392b2",
+            "rdid": "6ffdd4c9-6ac7-47d4-b34c-f4c5d017f625"
+        },
+        "assetId": content_id,
+        "browser": "chrome",
+        "deeplinkLang": "",
+        "deviceId": DEVICE_ID,
+        "drmDeviceId": "9fb7f6e7-fe3b-45c4-9808-fed2ff88314c",
+        "hasLAURLEnabled": False,
+        "os": "android",
+        "platform": "web"
     }
-    headers = {'User-Agent': USER_AGENT, 'Accept-Encoding': "identity", 'Content-Type': "application/json", 'authorization': TOKEN, 'device_id': DEVICE_ID, 'session_id': SESSION_ID}
+
+    # Aapke working script se liye gaye Headers
+    headers = {
+        'User-Agent': USER_AGENT,
+        'Accept-Encoding': "gzip",
+        'Content-Type': "application/json",
+        'x-via-device': "true",
+        'authorization': TOKEN,
+        'td_client_hints': "{\"os_name\":\"Android\",\"os_version\":\"17\",\"ram\":11,\"device_type\":\"phone\",\"device_make\":\"samsung\",\"device_model\":\"SM-S928B\",\"conn_type\":\"4G\",\"auto_retry\":false,\"app_version\":\"6.34.4\",\"client_throughput\":357,\"td_user_useragent\":\"Dalvik\\/2.1.0 (Linux; U; Android 17; SM-S928B Build\\/CP2A.260605.016)\",\"display_res\":2160,\"viewport_res\":2160,\"supp_codec\":\"AC3,H264,HEVC,AV1,\",\"hdr_decoder\":\"HDR10,HLG,HDR10_PLUS,\",\"audio_decoder\":\"AC3\"}",
+        'advertiserid': "6ffdd4c9-6ac7-47d4-b34c-f4c5d017f625",
+        'device_id': DEVICE_ID,
+        'app_version': "6.34.4",
+        'session_id': SESSION_ID,
+        'build_number': "20495"
+    }
 
     try:
-        response = requests.post(api_url, params=params, json=payload, headers=headers)
-        video_url = response.json().get("resultObj", {}).get("videoURL")
+        # data=json.dumps(payload) use kiya hai jaise aapki script me tha
+        response = requests.post(api_url, params=params, data=json.dumps(payload), headers=headers)
+        res_json = response.json()
+        video_url = res_json.get("resultObj", {}).get("videoURL")
+        
         if not video_url:
-            return f"API Error: Could not find videoURL for content {content_id}", 500
+            # Agar API phir bhi fail hoti hai, toh error print karo
+            print(f"❌ API Error for {show_name} Ep {ep_num}: {res_json}")
+            return f"API Error: {res_json}", 500
+            
     except Exception as e:
         return f"Server Error: {str(e)}", 500
 
