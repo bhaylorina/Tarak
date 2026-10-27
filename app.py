@@ -15,27 +15,13 @@ MASTER_FILE = "/data/master_episodes.json"
 OLD_MASTER_FILE = "master_episodes.json"
 
 SHOWS_CONFIG = [
-    {
-        "name": "Tarak Maheta",
-        "id": "1700000084",
-        "update_time": time(20, 31), # 8:31 PM IST
-        "is_new": False
-    },
-    {
-        "name": "Hastinapur ke veer",
-        "id": "1790007734", 
-        "update_time": time(21, 1),  # 9:01 PM IST
-        "is_new": True
-    },
-    {
-        "name": "Pushpa Impossible",
-        "id": "1700000921", 
-        "update_time": time(21, 31), # 9:31 PM IST
-        "is_new": True
-    }
+    {"name": "Tarak Maheta", "id": "1700000084", "update_time": time(20, 31), "is_new": False},
+    {"name": "Hastinapur ke veer", "id": "1790007734", "update_time": time(21, 1), "is_new": True},
+    {"name": "Pushpa Impossible", "id": "1700000921", "update_time": time(21, 31), "is_new": True}
 ]
 
-TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGFubmVsUGFydG5lcklEIjoiTVNNSU5EIiwiY29udGFjdElEIjoiNDczNTI0MjI2IiwiZGF0ZU9mQmlydGgiOjc3ODk2MjYwMDAwMCwiZW1haWwiOiJ5azcwOTMwNTZAZ21haWwuY29tIiwiZXhwIjoxODExODA5OTYyLCJleHBpcmF0aW9uTW9tZW50IjoiMjAyNy0wNi0wMVQwMDozMjo0Mi43NzRaIiwiZmlyc3ROYW1lIjoiQXJ2aW5kIiwiZ2VuZGVyIjoiRmVtYWxlIiwiaWF0IjoxNzgwMjczOTYyLCJpc0N1c3RvbWVyRWxpZ2libGVGb3JGcmVlVHJpYWwiOmZhbHNlLCJpc0VtYWlsVmVyaWZpZWQiOnRydWUsImlzTW9iaWxlVmVyaWZpZWQiOnRydWUsImlzUHJvZmlsZUNvbXBsZXRlIjp0cnVlLCJsYXN0TmFtZSI6IkdmeCIsIm1vYmlsZU51bWJlciI6IjYzOTU4MDI3NTgiLCJwcm9maWxlUGljIjoiaHR0cHM6Ly9vcmlnaW4tc3RhdGljdjIuc29ueWxpdi5jb20vVUlfaWNvbnMvTW9iaWxlX0F2YXRhcnNfMDMucG5nIiwic2Vzc2lvbkNyZWF0aW9uVGltZSI6IjIwMjYtMDYtMDFUMDA6MzI6NDIuNzc0WiIsInNvY2lhbExvZ2luSUQiOiJHVV8xMTE2MDc5MDM3NDMxNDU5NjA4MzMiLCJzb2NpYWxMb2dpblR5cGUiOiJHb29nbGUiLCJzb2NpYWxQcm9maWxlUGljIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSWZwTFVjbUg4YklSVW5lRHFHUzV1dU1rU1p3cWo4d3RxemNEUkJGWFFBSllnaDhRPXMxMDAiLCJ0b2tlbiI6ImU1V20tM09KVi00Tjh0LUcwVnktY1Vpai1nblRjLU13IiwidXNlcklkIjoiMjQwOTEwMTAwODE5OTczODYyNyJ9.nbO7tqv7JDcO-zvnekXirhoXJjoeXh_uH87W8dHh_tg" # <-- Apna naya token daal lein
+# YAHAN APNA NAYA TOKEN DAALEIN (Agar abhi bhi purana hai toh)
+TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGFubmVsUGFydG5lcklEIjoiTVNNSU5EIiwiY29udGFjdElEIjoiNDczNTI0MjI2IiwiZGF0ZU9mQmlydGgiOjc3ODk2MjYwMDAwMCwiZW1haWwiOiJ5azcwOTMwNTZAZ21haWwuY29tIiwiZXhwIjoxODExODA5OTYyLCJleHBpcmF0aW9uTW9tZW50IjoiMjAyNy0wNi0wMVQwMDozMjo0Mi43NzRaIiwiZmlyc3ROYW1lIjoiQXJ2aW5kIiwiZ2VuZGVyIjoiRmVtYWxlIiwiaWF0IjoxNzgwMjczOTYyLCJpc0N1c3RvbWVyRWxpZ2libGVGb3JGcmVlVHJpYWwiOmZhbHNlLCJpc0VtYWlsVmVyaWZpZWQiOnRydWUsImlzTW9iaWxlVmVyaWZpZWQiOnRydWUsImlzUHJvZmlsZUNvbXBsZXRlIjp0cnVlLCJsYXN0TmFtZSI6IkdmeCIsIm1vYmlsZU51bWJlciI6IjYzOTU4MDI3NTgiLCJwcm9maWxlUGljIjoiaHR0cHM6Ly9vcmlnaW4tc3RhdGljdjIuc29ueWxpdi5jb20vVUlfaWNvbnMvTW9iaWxlX0F2YXRhcnNfMDMucG5nIiwic2Vzc2lvbkNyZWF0aW9uVGltZSI6IjIwMjYtMDYtMDFUMDA6MzI6NDIuNzc0WiIsInNvY2lhbExvZ2luSUQiOiJHVV8xMTE2MDc5MDM3NDMxNDU5NjA4MzMiLCJzb2NpYWxMb2dpblR5cGUiOiJHb29nbGUiLCJzb2NpYWxQcm9maWxlUGljIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSWZwTFVjbUg4YklSVW5lRHFHUzV1dU1rU1p3cWo4d3RxemNEUkJGWFFBSllnaDhRPXMxMDAiLCJ0b2tlbiI6ImU1V20tM09KVi00Tjh0LUcwVnktY1Vpai1nblRjLU13IiwidXNlcklkIjoiMjQwOTEwMTAwODE5OTczODYyNyJ9.nbO7tqv7JDcO-zvnekXirhoXJjoeXh_uH87W8dHh_tg"
 SESSION_ID = "c5e7c4ef0f091d5e_1780273929491"
 DEVICE_ID = "83a25beee1317224"
 USER_AGENT = "com.sonyliv/6.34.4 ( Android17; en_IN; SM-S928B; Build/CP2A.260605.016 )"
@@ -90,7 +76,6 @@ def set_last_update_date(show_name):
     with open(file_path, 'w') as f:
         f.write(now_ist.strftime("%Y-%m-%d"))
 
-# YAHAN FORCE PARAMETER ADD KIYA HAI
 def check_and_update_new_episodes(force_update=False):
     ist = pytz.timezone('Asia/Kolkata')
     now_ist = datetime.now(ist)
@@ -106,15 +91,12 @@ def check_and_update_new_episodes(force_update=False):
         update_time = show["update_time"]
         is_new = show["is_new"]
         
-        # Agar force update nahi hai, tabhi time aur date check karo
         if not force_update:
             if current_time < update_time:
                 continue
             if get_last_update_date(show_name) == today_str:
                 continue
 
-        print(f"⏰ Checking for {show_name} (Force: {force_update})...")
-        
         api_url = f"https://apiv3.sonyliv.com/AGL/4.7/SR/ENG/ANDROID_PHONE/IN/GJ/DETAIL-V3/{show_id}"
         fetch_count = "2" if is_new and len(db[show_name]) == 0 else "10"
         
@@ -161,9 +143,6 @@ def check_and_update_new_episodes(force_update=False):
             if new_episodes_added > 0:
                 db[show_name].sort(key=lambda x: x['episodeNumber'])
                 db_changed = True
-                print(f"✅ Added {new_episodes_added} new episodes for {show_name}")
-            else:
-                print(f"ℹ️ No new episodes found for {show_name}")
                 
             set_last_update_date(show_name)
             
@@ -177,9 +156,7 @@ def check_and_update_new_episodes(force_update=False):
 
 @app.route('/playlist.m3u', methods=['GET'])
 def generate_m3u():
-    # Check karo agar URL me ?force=1 hai
     force = request.args.get('force') == '1'
-    
     check_and_update_new_episodes(force_update=force)
     db = load_db()
     
@@ -213,11 +190,88 @@ def generate_m3u():
     return Response("\n".join(m3u_content), mimetype='application/vnd.apple.mpegurl')
 
 
-# ... (Play route waisa hi rahega, use same rakhein) ...
 @app.route('/play', methods=['GET'])
 def play_episode():
-    # (Aapka play route ka code yahan aayega, jo bilkul same hai pichle code jaisa)
-    pass 
+    try:
+        ep_num = request.args.get('ep')
+        show_id = request.args.get('show')
+        
+        if not ep_num or not show_id:
+            return "Missing 'ep' or 'show' parameter", 400
+            
+        show_name = next((s["name"] for s in SHOWS_CONFIG if s["id"] == show_id), None)
+        
+        if not show_name:
+            return f"Show not found for ID {show_id}", 404
+            
+        db = load_db()
+        show_episodes = db.get(show_name, [])
+        ep_data = next((item for item in show_episodes if str(item["episodeNumber"]) == str(ep_num)), None)
+        
+        if not ep_data:
+            return f"Episode {ep_num} not found for show {show_name}", 404
+
+        content_id = str(ep_data['contentId'])
+
+        # --- Video URL API Logic ---
+        api_url = f"https://apiv2.sonyliv.com/AGL/5.0/SR/ENG/ANDROID_PHONE/IN/GJ/CONTENT/VIDEOURL/VOD/{content_id}"
+        
+        params = {'contactId': "473524226", 'kids_safe': "false", 'partnerName': "NA"}
+        
+        payload = {
+            "actionType": "play",
+            "adsParams": {
+                "app_ver": "6.34.4", "gId": "c06704015c0b184809d05c5b1a0a86a5",
+                "Idtype": "adid", "Is_lat": "0", "ppid": "0bd46cd548b8d5ca1f5be9ef68f392b2", "rdid": "6ffdd4c9-6ac7-47d4-b34c-f4c5d017f625"
+            },
+            "assetId": content_id, "browser": "chrome", "deviceId": DEVICE_ID,
+            "drmDeviceId": "9fb7f6e7-fe3b-45c4-9808-fed2ff88314c",
+            "hasLAURLEnabled": False, "os": "android", "platform": "web"
+        }
+
+        headers = {
+            'User-Agent': USER_AGENT, 'Accept-Encoding': "gzip", 'Content-Type': "application/json",
+            'x-via-device': "true", 'authorization': TOKEN,
+            'td_client_hints': "{\"os_name\":\"Android\",\"os_version\":\"17\",\"ram\":11,\"device_type\":\"phone\",\"device_make\":\"samsung\",\"device_model\":\"SM-S928B\",\"conn_type\":\"4G\",\"auto_retry\":false,\"app_version\":\"6.34.4\",\"client_throughput\":357,\"td_user_useragent\":\"Dalvik\\/2.1.0 (Linux; U; Android 17; SM-S928B Build\\/CP2A.260605.016)\",\"display_res\":2160,\"viewport_res\":2160,\"supp_codec\":\"AC3,H264,HEVC,AV1,\",\"hdr_decoder\":\"HDR10,HLG,HDR10_PLUS,\",\"audio_decoder\":\"AC3\"}",
+            'advertiserid': "6ffdd4c9-6ac7-47d4-b34c-f4c5d017f625",
+            'device_id': DEVICE_ID, 'app_version': "6.34.4", 'session_id': SESSION_ID, 'build_number': "20495"
+        }
+
+        # 1. API Call
+        response = requests.post(api_url, params=params, data=json.dumps(payload), headers=headers)
+        
+        # 2. Check if API returned valid JSON (Catch HTML blocks)
+        try:
+            res_json = response.json()
+        except ValueError:
+            return f"API Block Error: SonyLIV ne JSON nahi bheja. Status Code: {response.status_code}. Response: {response.text[:200]}", 500
+
+        # 3. Safely extract videoURL
+        result_obj = res_json.get("resultObj")
+        if not result_obj:
+            return f"API Error: resultObj not found. Full Response: {res_json}", 500
+            
+        video_url = result_obj.get("videoURL")
+        if not video_url:
+            return f"API Error: videoURL missing for content {content_id}.", 500
+
+        # 4. MPD Proxy Logic
+        mpd_resp = requests.get(video_url, headers=PROXY_HEADERS)
+        mpd_resp.raise_for_status() # Throws error if 403/404
+        mpd_text = mpd_resp.text
+
+        base_dir = video_url.split('?')[0].rsplit('/', 1)[0] + '/'
+        mpd_text = re.sub(r'<BaseURL>.*?</BaseURL>', '', mpd_text)
+        mpd_text = re.sub(r'(<MPD[^>]*>)', rf'\1<BaseURL>{base_dir}</BaseURL>', mpd_text, count=1)
+
+        return Response(mpd_text, mimetype='application/dash+xml')
+
+    except Exception as e:
+        # Ye block kisi bhi unexpected crash ko pakad lega aur error dikhayega
+        import traceback
+        error_details = traceback.format_exc()
+        print(error_details) # Railway logs me dikhega
+        return f"CRITICAL SERVER ERROR:\n{str(e)}\n\nDetails:\n{error_details}", 500
 
 if __name__ == '__main__':
     load_db()
