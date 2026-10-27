@@ -12,11 +12,9 @@ app = Flask(__name__)
 
 # --- CONFIGURATION ---
 MASTER_FILE = "/data/master_episodes.json"
-# Purani file ka backup path agar migrate karna ho
 OLD_MASTER_FILE = "master_episodes.json"
 
 # --- SHOWS CONFIGURATION ---
-# Note: Pushpa aur Hosiyarpur ki Show ID aapko SonyLIV app se nikalni hogi.
 SHOWS_CONFIG = [
     {
         "name": "Tarak Maheta",
@@ -26,13 +24,13 @@ SHOWS_CONFIG = [
     },
     {
         "name": "Hastinapur ke veer",
-        "id": "1790007734", # <-- Yahan Hosiyarpur ki actual SonyLIV ID dalein
+        "id": "1790007734", 
         "update_time": time(00, 1),  # 9:01 PM
         "is_new": True
     },
     {
         "name": "Pushpa Impossible",
-        "id": "1700000921", # <-- Yahan Pushpa ki actual SonyLIV ID dalein
+        "id": "1700000921", 
         "update_time": time(00, 1), # 9:31 PM
         "is_new": True
     }
@@ -53,26 +51,22 @@ PROXY_HEADERS = {
 # --- HELPER FUNCTIONS ---
 
 def load_db():
-    """Loads JSON, auto-migrates old format, and ensures structure is correct"""
     data = {}
     if os.path.exists(MASTER_FILE):
         with open(MASTER_FILE, 'r', encoding='utf-8') as f:
             data = json.load(f)
     elif os.path.exists(OLD_MASTER_FILE):
-        # Agar purani file root me hai, toh volume me copy karein
         shutil.copy(OLD_MASTER_FILE, MASTER_FILE)
         with open(MASTER_FILE, 'r', encoding='utf-8') as f:
             data = json.load(f)
         print("✅ Old Data copied to /data/")
 
-    # MIGRATION LOGIC: Agar data list format me hai (purana TMKOC wala), toh dictionary me convert karo
     if isinstance(data, list):
         print("🔄 Migrating old list format to new multi-show dictionary format...")
         new_data = {"Tarak Maheta": data}
         save_db(new_data)
         return new_data
     
-    # Agar dictionary hai, par shows missing hain, toh add karo
     if not isinstance(data, dict):
         data = {}
     
@@ -87,7 +81,6 @@ def save_db(data):
         json.dump(data, f, indent=4)
 
 def get_last_update_date(show_name):
-    """File read karke check karta hai ki aaj is show ka update hua hai ya nahi"""
     file_path = f"/data/last_update_{show_name.replace(' ', '_')}.txt"
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
@@ -116,19 +109,15 @@ def check_and_update_new_episodes():
         update_time = show["update_time"]
         is_new = show["is_new"]
         
-        # 1. Time check (Agar time nahi hua hai, toh skip karo)
         if current_time < update_time:
             continue
             
-        # 2. Aaj ka update check (Agar aaj ho chuka hai, toh skip karo)
         if get_last_update_date(show_name) == today_str:
             continue
 
         print(f"⏰ {update_time.strftime('%I:%M %p')} ho gaya hai! Checking for {show_name}...")
         
         api_url = f"https://apiv3.sonyliv.com/AGL/4.7/SR/ENG/ANDROID_PHONE/IN/GJ/DETAIL-V3/{show_id}"
-        # Agar naya show hai, toh sirf 2 episodes fetch karenge taaki yesterday ka mil jaye
-        # Warna latest 10 fetch karenge
         fetch_count = "2" if is_new and len(db[show_name]) == 0 else "10"
         
         params = {'from': "0", 'to': fetch_count, 'kids_safe': "false"}
@@ -190,24 +179,23 @@ def check_and_update_new_episodes():
 
 @app.route('/playlist.m3u', methods=['GET'])
 def generate_m3u():
-    # Step 1: Check for all shows based on their times
     check_and_update_new_episodes()
-
-    # Step 2: Load latest DB
     db = load_db()
-    base_url = f"http://{request.host}/play"
+    
+    # Request ke hisaab se http ya https automatically set ho jayega
+    base_url = request.host_url + "play"
     
     m3u_content = ["#EXTM3U"]
     
-    # Loop through all shows and their episodes
     for show_name, episodes in db.items():
         if not episodes:
             continue
             
-        # Group name banayenge (Jaisa aap chahte hain: SAB | ShowName)
         group_title = f"SAB | {show_name}"
         
-        # Episodes ko reverse karenge taaki latest sabse upar dikhe
+        # Show ID nikal rahe hain URL me bhejne ke liye (taaki spaces ka issue na aaye)
+        show_id_for_url = next((s["id"] for s in SHOWS_CONFIG if s["name"] == show_name), "")
+        
         for ep in reversed(episodes):
             ep_num = ep['episodeNumber']
             title = ep['episodeTitle']
@@ -215,11 +203,11 @@ def generate_m3u():
             
             display_name = f"{date} - Ep {ep_num} - {title}"
             
-            # Play route me show name aur ep number dono pass karenge
-            safe_show_name = urllib.parse.quote(show_name)
-            stream_url = f"{base_url}?show={safe_show_name}&ep={ep_num}&date={date}"
+            # CHANGE 1 & 3: URL me show_name nahi, show_id bhejenge. Aur tvg-id unique banayenge.
+            unique_tvg_id = f"{show_id_for_url}_{ep_num}"
+            stream_url = f"{base_url}?show={show_id_for_url}&ep={ep_num}&date={date}"
             
-            m3u_content.append(f'#EXTINF:10 tvg-id="{ep_num}" group-title="{group_title}", {display_name}')
+            m3u_content.append(f'#EXTINF:10 tvg-id="{unique_tvg_id}" group-title="{group_title}", {display_name}')
             m3u_content.append(stream_url)
 
     return Response("\n".join(m3u_content), mimetype='application/vnd.apple.mpegurl')
@@ -228,14 +216,18 @@ def generate_m3u():
 @app.route('/play', methods=['GET'])
 def play_episode():
     ep_num = request.args.get('ep')
-    show_name = request.args.get('show') # Ab show ka naam bhi aa raha hai
+    show_id = request.args.get('show') # Ab yahan Show ID aayegi (e.g. 1790007734)
     
-    if not ep_num or not show_name:
+    if not ep_num or not show_id:
         return "Missing 'ep' or 'show' parameter", 400
         
-    db = load_db()
+    # Show ID se Show ka naam dhundenge
+    show_name = next((s["name"] for s in SHOWS_CONFIG if s["id"] == show_id), None)
     
-    # Correct show ke andar episode dhundenge
+    if not show_name:
+        return f"Show not found for ID {show_id}", 404
+        
+    db = load_db()
     show_episodes = db.get(show_name, [])
     ep_data = next((item for item in show_episodes if str(item["episodeNumber"]) == str(ep_num)), None)
     
@@ -258,7 +250,7 @@ def play_episode():
         response = requests.post(api_url, params=params, json=payload, headers=headers)
         video_url = response.json().get("resultObj", {}).get("videoURL")
         if not video_url:
-            return f"API Error: Could not find videoURL", 500
+            return f"API Error: Could not find videoURL for content {content_id}", 500
     except Exception as e:
         return f"Server Error: {str(e)}", 500
 
@@ -278,7 +270,6 @@ def play_episode():
         return f"Manifest Error: {str(e)}", 500
 
 if __name__ == '__main__':
-    # Server start hote hi DB load/initialize karega
     load_db()
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
