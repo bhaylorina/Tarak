@@ -27,13 +27,13 @@ SHOWS_CONFIG = [
     {
         "name": "Hosiyarpur",
         "id": "1700007734", # <-- Yahan Hosiyarpur ki actual SonyLIV ID dalein
-        "update_time": time(21, 1),  # 9:01 PM
+        "update_time": time(00, 1),  # 9:01 PM
         "is_new": True
     },
     {
         "name": "Pushpa Impossible",
         "id": "1700000921", # <-- Yahan Pushpa ki actual SonyLIV ID dalein
-        "update_time": time(21, 31), # 9:31 PM
+        "update_time": time(00, 1), # 9:31 PM
         "is_new": True
     }
 ]
