@@ -25,7 +25,7 @@ SHOWS_CONFIG = [
         "is_new": False
     },
     {
-        "name": "Hosiyarpur",
+        "name": "Hastinapur",
         "id": "1700007734", # <-- Yahan Hosiyarpur ki actual SonyLIV ID dalein
         "update_time": time(00, 1),  # 9:01 PM
         "is_new": True
