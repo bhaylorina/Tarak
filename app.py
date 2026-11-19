@@ -17,7 +17,7 @@ OLD_MASTER_FILE = "master_episodes.json"
 SHOWS_CONFIG = [
     {"name": "Tarak Maheta", "id": "1700000084", "update_time": time(20, 31), "is_new": False},
     {"name": "Hastinapur ke veer", "id": "1790007734", "update_time": time(21, 1), "is_new": True},
-    {"name": "chudel", "id": "1790007924", "update_time": time(20, 1), "is_new": True},
+    {"name": "chudel", "id": "1790007924", "update_time": time(1, 5), "is_new": True},
     {"name": "Pushpa Impossible", "id": "1700000921", "update_time": time(21, 31), "is_new": True}
 ]
 
