@@ -256,9 +256,18 @@ def play_episode():
         if not video_url:
             return f"API Error: videoURL missing for content {content_id}.", 500
 
-        # 4. MPD Proxy Logic
+        # ================== PROXY LOGIC (HOST REWRITE) ==================
+        SOURCE_HOST = "sonynondrmvod.akamaized.net"
+        TARGET_HOST = "securetoken.sonyliv.com"
+
+        # Sirf host badal do, path + query (hdntl token) same rahega
+        video_url = video_url.replace(
+            f"https://{SOURCE_HOST}/",
+            f"https://{TARGET_HOST}/"
+        )
+
         mpd_resp = requests.get(video_url, headers=PROXY_HEADERS)
-        mpd_resp.raise_for_status() # Throws error if 403/404
+        mpd_resp.raise_for_status()
         mpd_text = mpd_resp.text
 
         base_dir = video_url.split('?')[0].rsplit('/', 1)[0] + '/'
@@ -266,6 +275,7 @@ def play_episode():
         mpd_text = re.sub(r'(<MPD[^>]*>)', rf'\1<BaseURL>{base_dir}</BaseURL>', mpd_text, count=1)
 
         return Response(mpd_text, mimetype='application/dash+xml')
+        # ================== END PROXY LOGIC ==================
 
     except Exception as e:
         # Ye block kisi bhi unexpected crash ko pakad lega aur error dikhayega
