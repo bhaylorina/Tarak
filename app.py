@@ -22,9 +22,9 @@ SHOWS_CONFIG = [
 ]
 
 # YAHAN APNA NAYA TOKEN DAALEIN (Agar abhi bhi purana hai toh)
-TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGFubmVsUGFydG5lcklEIjoiTVNNSU5EIiwiY29udGFjdElEIjoiNDczNTI0MjI2IiwiZGF0ZU9mQmlydGgiOjc3ODk2MjYwMDAwMCwiZW1haWwiOiJ5azcwOTMwNTZAZ21haWwuY29tIiwiZXhwIjoxODExODA5OTYyLCJleHBpcmF0aW9uTW9tZW50IjoiMjAyNy0wNi0wMVQwMDozMjo0Mi43NzRaIiwiZmlyc3ROYW1lIjoiQXJ2aW5kIiwiZ2VuZGVyIjoiRmVtYWxlIiwiaWF0IjoxNzgwMjczOTYyLCJpc0N1c3RvbWVyRWxpZ2libGVGb3JGcmVlVHJpYWwiOmZhbHNlLCJpc0VtYWlsVmVyaWZpZWQiOnRydWUsImlzTW9iaWxlVmVyaWZpZWQiOnRydWUsImlzUHJvZmlsZUNvbXBsZXRlIjp0cnVlLCJsYXN0TmFtZSI6IkdmeCIsIm1vYmlsZU51bWJlciI6IjYzOTU4MDI3NTgiLCJwcm9maWxlUGljIjoiaHR0cHM6Ly9vcmlnaW4tc3RhdGljdjIuc29ueWxpdi5jb20vVUlfaWNvbnMvTW9iaWxlX0F2YXRhcnNfMDMucG5nIiwic2Vzc2lvbkNyZWF0aW9uVGltZSI6IjIwMjYtMDYtMDFUMDA6MzI6NDIuNzc0WiIsInNvY2lhbExvZ2luSUQiOiJHVV8xMTE2MDc5MDM3NDMxNDU5NjA4MzMiLCJzb2NpYWxMb2dpblR5cGUiOiJHb29nbGUiLCJzb2NpYWxQcm9maWxlUGljIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSWZwTFVjbUg4YklSVW5lRHFHUzV1dU1rU1p3cWo4d3RxemNEUkJGWFFBSllnaDhRPXMxMDAiLCJ0b2tlbiI6ImU1V20tM09KVi00Tjh0LUcwVnktY1Vpai1nblRjLU13IiwidXNlcklkIjoiMjQwOTEwMTAwODE5OTczODYyNyJ9.nbO7tqv7JDcO-zvnekXirhoXJjoeXh_uH87W8dHh_tg"
-SESSION_ID = "c5e7c4ef0f091d5e_1780273929491"
-DEVICE_ID = "83a25beee1317224"
+TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGFubmVsUGFydG5lcklEIjoiTVNNSU5EIiwiY29udGFjdElEIjoiNTMxODE4NDAiLCJkYXRlT2ZCaXJ0aCI6MzY1OTkwNDAwMDAwLCJlbWFpbCI6Imxha2hvYmltQGdtYWlsLmNvbSIsImV4cCI6MTgyNzI0NTQwNCwiZXhwaXJhdGlvbk1vbWVudCI6IjIwMjctMTEtMjZUMTY6MTA6MDQuMzM1WiIsImZpcnN0TmFtZSI6IlJpcGFsIiwiZ2VuZGVyIjoiTWFsZSIsImlhdCI6MTc5NTcwOTQwNCwiaXNDdXN0b21lckVsaWdpYmxlRm9yRnJlZVRyaWFsIjpmYWxzZSwiaXNFbWFpbFZlcmlmaWVkIjp0cnVlLCJpc01vYmlsZVZlcmlmaWVkIjp0cnVlLCJpc1Byb2ZpbGVDb21wbGV0ZSI6ZmFsc2UsImxhc3ROYW1lIjoiY2hhbmQiLCJtb2JpbGVOdW1iZXIiOiI5ODc5NzAwNjI5IiwicHJvZmlsZVBpYyI6Imh0dHBzOi8vb3JpZ2luLXN0YXRpY3YyLnNvbnlsaXYuY29tL1VJX2ljb25zL01vYmlsZV9BdmF0YXJzXzAxLnBuZyIsInNlc3Npb25DcmVhdGlvblRpbWUiOiIyMDI2LTExLTI2VDE2OjEwOjA0LjMzNVoiLCJzb2NpYWxMb2dpbklEIjoiMTAwNjU5MDcwNDc5ODg3MTI1NTc5Iiwic29jaWFsTG9naW5UeXBlIjoiR29vZ2xlIiwic29jaWFsUHJvZmlsZVBpYyI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FBVFhBSnp0M2JHUG1zdE1hSm90U0Z3YUZ0SE5NaEEwUmw0LThLSEZTSmotPXMxMDAiLCJ0b2tlbiI6InVMVVQtNk9DZi1NVEFvLVdTbVAtZllQZi1rbkh4LXlYIiwidXNlcklkIjoiMTgwMjAxMTgwNTUzMTc5NjU5In0.nvMJnzUwSZPs3QBJFn17KmzANZVOOPp-dEQ1mAoBX-Q"
+SESSION_ID = "0f9d8f8bd761f4ea_1795709225600"
+DEVICE_ID = "0f9d8f8bd761f4ea"
 USER_AGENT = "com.sonyliv/6.34.4 ( Android17; en_IN; SM-S928B; Build/CP2A.260605.016 )"
 
 PROXY_HEADERS = {
@@ -222,11 +222,11 @@ def play_episode():
         payload = {
             "actionType": "play",
             "adsParams": {
-                "app_ver": "6.34.4", "gId": "c06704015c0b184809d05c5b1a0a86a5",
-                "Idtype": "adid", "Is_lat": "0", "ppid": "0bd46cd548b8d5ca1f5be9ef68f392b2", "rdid": "6ffdd4c9-6ac7-47d4-b34c-f4c5d017f625"
+                "app_ver": "6.34.4", "gId": "9cf9b8c468051508104fcba470383a38",
+                "Idtype": "adid", "Is_lat": "0", "ppid": "5a3bd61489e7fbf1b46298516b940162", "rdid": "1fc3d968-4a01-4cbf-892d-d3cec3838dd3"
             },
             "assetId": content_id, "browser": "chrome", "deviceId": DEVICE_ID,
-            "drmDeviceId": "9fb7f6e7-fe3b-45c4-9808-fed2ff88314c",
+            "drmDeviceId": "4e537b9d-8fbd-4126-b732-aa234c93ae3d",
             "hasLAURLEnabled": False, "os": "android", "platform": "web"
         }
 
@@ -234,7 +234,7 @@ def play_episode():
             'User-Agent': USER_AGENT, 'Accept-Encoding': "gzip", 'Content-Type': "application/json",
             'x-via-device': "true", 'authorization': TOKEN,
             'td_client_hints': "{\"os_name\":\"Android\",\"os_version\":\"17\",\"ram\":11,\"device_type\":\"phone\",\"device_make\":\"samsung\",\"device_model\":\"SM-S928B\",\"conn_type\":\"4G\",\"auto_retry\":false,\"app_version\":\"6.34.4\",\"client_throughput\":357,\"td_user_useragent\":\"Dalvik\\/2.1.0 (Linux; U; Android 17; SM-S928B Build\\/CP2A.260605.016)\",\"display_res\":2160,\"viewport_res\":2160,\"supp_codec\":\"AC3,H264,HEVC,AV1,\",\"hdr_decoder\":\"HDR10,HLG,HDR10_PLUS,\",\"audio_decoder\":\"AC3\"}",
-            'advertiserid': "6ffdd4c9-6ac7-47d4-b34c-f4c5d017f625",
+            'advertiserid': "1fc3d968-4a01-4cbf-892d-d3cec3838dd3",
             'device_id': DEVICE_ID, 'app_version': "6.34.4", 'session_id': SESSION_ID, 'build_number': "20495"
         }
 
